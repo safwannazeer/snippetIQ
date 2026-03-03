@@ -5,6 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppLayout } from "@/components/AppLayout";
 import { useTheme } from "@/hooks/useTheme";
+import Landing from "@/pages/Landing";
+import Login from "@/pages/Login";
+import Signup from "@/pages/Signup";
 import Dashboard from "@/pages/Dashboard";
 import MySnippets from "@/pages/MySnippets";
 import NotFound from "./pages/NotFound";
@@ -16,10 +19,17 @@ const AppContent = () => {
 
   return (
     <Routes>
+      {/* Public pages */}
+      <Route path="/" element={<Landing isDark={isDark} toggleTheme={toggle} />} />
+      <Route path="/login" element={<Login isDark={isDark} toggleTheme={toggle} />} />
+      <Route path="/signup" element={<Signup isDark={isDark} toggleTheme={toggle} />} />
+
+      {/* App pages */}
       <Route element={<AppLayout isDark={isDark} toggleTheme={toggle} />}>
-        <Route path="/" element={<Dashboard isDark={isDark} />} />
+        <Route path="/dashboard" element={<Dashboard isDark={isDark} />} />
         <Route path="/snippets" element={<MySnippets />} />
       </Route>
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
