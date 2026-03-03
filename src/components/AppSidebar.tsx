@@ -1,12 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { LayoutDashboard, Code2, LogOut } from "lucide-react";
 
 const navItems = [
-  { to: "/", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/snippets", label: "My Snippets", icon: Code2 },
 ];
 
 export function AppSidebar() {
+  const navigate = useNavigate();
+
   return (
     <aside className="flex h-screen w-60 shrink-0 flex-col border-r border-sidebar-border bg-sidebar transition-theme">
       {/* Brand */}
@@ -42,7 +44,10 @@ export function AppSidebar() {
 
       {/* Logout */}
       <div className="border-t border-sidebar-border px-3 py-3">
-        <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors">
+        <button
+          onClick={() => navigate("/")}
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
+        >
           <LogOut className="h-4 w-4" />
           Logout
         </button>
