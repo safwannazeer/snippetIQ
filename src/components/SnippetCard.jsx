@@ -1,14 +1,7 @@
 import { Code2, Trash2 } from "lucide-react";
 import { TagChip } from "@/components/TagChip";
-import type { Snippet } from "@/lib/types";
 
-interface SnippetCardProps {
-  snippet: Snippet;
-  onClick: () => void;
-  onDelete: () => void;
-}
-
-export function SnippetCard({ snippet, onClick, onDelete }: SnippetCardProps) {
+export function SnippetCard({ snippet, onClick, onDelete }) {
   return (
     <div
       className="group rounded-lg border border-border bg-card p-4 transition-theme hover:shadow-md hover:border-primary/30 cursor-pointer animate-fade-in"

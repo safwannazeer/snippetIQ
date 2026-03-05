@@ -1,9 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
-import type { Snippet } from "@/lib/types";
 
 const STORAGE_KEY = "snippetiq-snippets";
 
-function loadSnippets(): Snippet[] {
+function loadSnippets() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
@@ -12,20 +11,20 @@ function loadSnippets(): Snippet[] {
   }
 }
 
-function saveSnippets(snippets: Snippet[]) {
+function saveSnippets(snippets) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(snippets));
 }
 
 export function useSnippets() {
-  const [snippets, setSnippets] = useState<Snippet[]>(loadSnippets);
+  const [snippets, setSnippets] = useState(loadSnippets);
 
   useEffect(() => {
     saveSnippets(snippets);
   }, [snippets]);
 
-  const addSnippet = useCallback((snippet: Omit<Snippet, "id" | "createdAt" | "updatedAt">) => {
+  const addSnippet = useCallback((snippet) => {
     const now = new Date().toISOString();
-    const newSnippet: Snippet = {
+    const newSnippet = {
       ...snippet,
       id: crypto.randomUUID(),
       createdAt: now,
@@ -35,13 +34,13 @@ export function useSnippets() {
     return newSnippet;
   }, []);
 
-  const updateSnippet = useCallback((id: string, updates: Partial<Omit<Snippet, "id" | "createdAt">>) => {
+  const updateSnippet = useCallback((id, updates) => {
     setSnippets((prev) =>
       prev.map((s) => (s.id === id ? { ...s, ...updates, updatedAt: new Date().toISOString() } : s))
     );
   }, []);
 
-  const deleteSnippet = useCallback((id: string) => {
+  const deleteSnippet = useCallback((id) => {
     setSnippets((prev) => prev.filter((s) => s.id !== id));
   }, []);
 

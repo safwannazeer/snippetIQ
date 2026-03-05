@@ -1,4 +1,4 @@
-const keywordMap: Record<string, string[]> = {
+const keywordMap = {
   JavaScript: ["async", "await", "promise", "fetch", "dom", "event", "callback", "closure", "prototype", "class", "arrow-function", "destructuring", "spread", "rest", "template-literal", "module", "import", "export", "json", "array", "object", "map", "filter", "reduce", "foreach", "settimeout", "setinterval", "try-catch", "error-handling"],
   TypeScript: ["interface", "type", "generic", "enum", "decorator", "readonly", "union", "intersection", "utility-type", "mapped-type", "conditional-type", "assertion", "guard", "namespace", "module", "async", "await", "promise"],
   Python: ["def", "class", "lambda", "list-comprehension", "generator", "decorator", "context-manager", "async", "await", "exception", "dictionary", "tuple", "set", "slice", "f-string", "import", "module", "pip", "virtualenv", "pandas", "numpy"],
@@ -10,10 +10,10 @@ const keywordMap: Record<string, string[]> = {
   Rust: ["ownership", "borrowing", "lifetime", "trait", "enum", "match", "option", "result", "struct", "impl", "generic", "closure", "iterator", "async", "unsafe", "macro", "crate", "module"],
 };
 
-export function generateTags(code: string, language: string): string[] {
+export function generateTags(code, language) {
   const lowerCode = code.toLowerCase();
   const langKeywords = keywordMap[language] || [];
-  const tags: string[] = [language.toLowerCase()];
+  const tags = [language.toLowerCase()];
 
   for (const keyword of langKeywords) {
     const searchTerms = keyword.split("-");
@@ -24,6 +24,5 @@ export function generateTags(code: string, language: string): string[] {
     }
   }
 
-  // Limit to 8 tags max
   return tags.slice(0, 8);
 }

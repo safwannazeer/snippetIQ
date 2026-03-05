@@ -7,27 +7,18 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-interface SignupProps {
-  isDark: boolean;
-  toggleTheme: () => void;
-}
-
-export default function Signup({ isDark, toggleTheme }: SignupProps) {
+export default function Login({ isDark, toggleTheme }) {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: real auth
     navigate("/dashboard");
   };
 
   return (
     <div className="flex min-h-screen flex-col bg-background transition-theme">
-      {/* Top bar */}
       <div className="flex items-center justify-between px-6 py-4">
         <Link to="/" className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
@@ -40,25 +31,14 @@ export default function Signup({ isDark, toggleTheme }: SignupProps) {
         <ThemeToggle isDark={isDark} toggle={toggleTheme} />
       </div>
 
-      {/* Form */}
       <div className="flex flex-1 items-center justify-center px-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Create Your SnippetIQ Account</CardTitle>
-            <CardDescription>Start organizing your code smarter</CardDescription>
+            <CardTitle className="text-2xl">Welcome Back to SnippetIQ</CardTitle>
+            <CardDescription>Sign in to your account</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  placeholder="Your name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -81,25 +61,14 @@ export default function Signup({ isDark, toggleTheme }: SignupProps) {
                   required
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirm">Confirm Password</Label>
-                <Input
-                  id="confirm"
-                  type="password"
-                  placeholder="••••••••"
-                  value={confirm}
-                  onChange={(e) => setConfirm(e.target.value)}
-                  required
-                />
-              </div>
               <Button type="submit" className="w-full">
-                Sign Up
+                Login
               </Button>
             </form>
             <p className="mt-4 text-center text-sm text-muted-foreground">
-              Already have an account?{" "}
-              <Link to="/login" className="text-primary hover:underline font-medium">
-                Login
+              Don't have an account?{" "}
+              <Link to="/signup" className="text-primary hover:underline font-medium">
+                Sign up
               </Link>
             </p>
           </CardContent>

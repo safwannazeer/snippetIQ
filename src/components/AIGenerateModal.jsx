@@ -4,14 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-interface AIGenerateModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onGenerate: (prompt: string) => void;
-  isGenerating: boolean;
-}
-
-export function AIGenerateModal({ isOpen, onClose, onGenerate, isGenerating }: AIGenerateModalProps) {
+export function AIGenerateModal({ isOpen, onClose, onGenerate, isGenerating }) {
   const [prompt, setPrompt] = useState("");
 
   if (!isOpen) return null;

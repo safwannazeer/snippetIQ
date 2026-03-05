@@ -2,12 +2,7 @@ import { Outlet } from "react-router-dom";
 import { AppSidebar } from "@/components/AppSidebar";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-interface AppLayoutProps {
-  isDark: boolean;
-  toggleTheme: () => void;
-}
-
-export function AppLayout({ isDark, toggleTheme }: AppLayoutProps) {
+export function AppLayout({ isDark, toggleTheme }) {
   return (
     <div className="flex h-screen w-full bg-background transition-theme">
       <AppSidebar />
