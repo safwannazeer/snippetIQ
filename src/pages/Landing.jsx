@@ -3,11 +3,6 @@ import { Code2, Tags, Search, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-interface LandingProps {
-  isDark: boolean;
-  toggleTheme: () => void;
-}
-
 const features = [
   {
     icon: Code2,
@@ -31,7 +26,7 @@ const features = [
   },
 ];
 
-export default function Landing({ isDark, toggleTheme }: LandingProps) {
+export default function Landing({ isDark, toggleTheme }) {
   return (
     <div className="min-h-screen bg-background text-foreground transition-theme">
       {/* Navbar */}

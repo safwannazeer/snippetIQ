@@ -30,7 +30,7 @@ export default function MySnippets() {
     return result;
   }, [snippets, searchQuery, filterLang]);
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id) => {
     deleteSnippet(id);
     toast.success("Snippet deleted");
   };

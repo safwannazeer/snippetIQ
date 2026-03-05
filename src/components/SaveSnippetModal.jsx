@@ -5,17 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-interface SaveSnippetModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSave: (title: string, tags: string[]) => void;
-  autoTags: string[];
-  language: string;
-}
-
-export function SaveSnippetModal({ isOpen, onClose, onSave, autoTags, language }: SaveSnippetModalProps) {
+export function SaveSnippetModal({ isOpen, onClose, onSave, autoTags, language }) {
   const [title, setTitle] = useState("");
-  const [tags, setTags] = useState<string[]>(autoTags);
+  const [tags, setTags] = useState(autoTags);
   const [newTag, setNewTag] = useState("");
 
   if (!isOpen) return null;
@@ -28,7 +20,7 @@ export function SaveSnippetModal({ isOpen, onClose, onSave, autoTags, language }
     }
   };
 
-  const handleRemoveTag = (tag: string) => {
+  const handleRemoveTag = (tag) => {
     setTags(tags.filter((t) => t !== tag));
   };
 

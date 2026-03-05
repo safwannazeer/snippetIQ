@@ -1,13 +1,3 @@
-export interface Snippet {
-  id: string;
-  title: string;
-  language: string;
-  code: string;
-  tags: string[];
-  createdAt: string;
-  updatedAt: string;
-}
-
 export const LANGUAGES = [
   "JavaScript",
   "TypeScript",
@@ -24,11 +14,9 @@ export const LANGUAGES = [
   "Ruby",
   "Swift",
   "Kotlin",
-] as const;
+];
 
-export type Language = (typeof LANGUAGES)[number];
-
-export const languageToMonaco: Record<string, string> = {
+export const languageToMonaco = {
   JavaScript: "javascript",
   TypeScript: "typescript",
   Python: "python",

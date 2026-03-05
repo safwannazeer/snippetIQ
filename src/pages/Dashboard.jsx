@@ -11,17 +11,13 @@ import { generateTags } from "@/lib/tagGenerator";
 import { LANGUAGES, languageToMonaco } from "@/lib/types";
 import { toast } from "sonner";
 
-interface DashboardProps {
-  isDark: boolean;
-}
-
-const sampleCode: Record<string, string> = {
+const sampleCode = {
   JavaScript: `// Welcome to SnippetIQ\n// Start coding or paste your snippet here\n\nfunction greet(name) {\n  return \`Hello, \${name}!\`;\n}\n\nconsole.log(greet("World"));`,
   TypeScript: `// Welcome to SnippetIQ\n\ninterface User {\n  name: string;\n  email: string;\n}\n\nconst greet = (user: User): string => {\n  return \`Hello, \${user.name}!\`;\n};`,
   Python: `# Welcome to SnippetIQ\n\ndef greet(name: str) -> str:\n    return f"Hello, {name}!"\n\nprint(greet("World"))`,
 };
 
-export default function Dashboard({ isDark }: DashboardProps) {
+export default function Dashboard({ isDark }) {
   const [code, setCode] = useState(sampleCode["JavaScript"] || "");
   const [language, setLanguage] = useState("JavaScript");
   const [searchQuery, setSearchQuery] = useState("");
@@ -32,22 +28,21 @@ export default function Dashboard({ isDark }: DashboardProps) {
 
   const tags = useMemo(() => generateTags(code, language), [code, language]);
 
-  const handleLanguageChange = (lang: string) => {
+  const handleLanguageChange = (lang) => {
     setLanguage(lang);
     if (sampleCode[lang] && code === (sampleCode[language] || "")) {
       setCode(sampleCode[lang]);
     }
   };
 
-  const handleSave = (title: string, saveTags: string[]) => {
+  const handleSave = (title, saveTags) => {
     addSnippet({ title, language, code, tags: saveTags });
     setShowSaveModal(false);
     toast.success("Snippet saved successfully!");
   };
 
-  const handleAIGenerate = useCallback(async (prompt: string) => {
+  const handleAIGenerate = useCallback(async (prompt) => {
     setIsGenerating(true);
-    // Mock AI generation
     await new Promise((r) => setTimeout(r, 1500));
     const mockResponse = `// AI Generated: ${prompt}\n// Language: ${language}\n\n// TODO: Connect to AI backend for real generation\nfunction example() {\n  console.log("Generated from prompt: ${prompt}");\n}\n`;
     setCode(mockResponse);
@@ -63,7 +58,6 @@ export default function Dashboard({ isDark }: DashboardProps) {
         <p className="mt-1 text-sm text-muted-foreground">Write, edit, and save your code snippets</p>
       </div>
 
-      {/* Search + Language */}
       <div className="mb-4 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -85,7 +79,6 @@ export default function Dashboard({ isDark }: DashboardProps) {
         </select>
       </div>
 
-      {/* Editor */}
       <div className="overflow-hidden rounded-xl border border-border shadow-sm transition-theme">
         <div className="flex items-center justify-between border-b border-border bg-muted/50 px-4 py-2 transition-theme">
           <span className="text-xs font-medium text-muted-foreground">{language}</span>
@@ -121,7 +114,6 @@ export default function Dashboard({ isDark }: DashboardProps) {
         />
       </div>
 
-      {/* Tags */}
       {tags.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-1.5">
           {tags.map((tag) => (
@@ -130,7 +122,6 @@ export default function Dashboard({ isDark }: DashboardProps) {
         </div>
       )}
 
-      {/* Actions */}
       <div className="mt-4 flex gap-3">
         <Button onClick={() => setShowSaveModal(true)} className="gap-2">
           <Save className="h-4 w-4" />

@@ -1,12 +1,6 @@
 import { X } from "lucide-react";
 
-interface TagChipProps {
-  label: string;
-  onRemove?: () => void;
-  removable?: boolean;
-}
-
-export function TagChip({ label, onRemove, removable = false }: TagChipProps) {
+export function TagChip({ label, onRemove, removable = false }) {
   return (
     <span className="inline-flex items-center gap-1 rounded-full bg-tag px-2.5 py-0.5 text-xs font-medium text-tag-foreground transition-theme animate-fade-in">
       {label}
