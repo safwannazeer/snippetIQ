@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { BASE_URL } from "@/config";
 
 export function AIGenerateModal({
   isOpen,
@@ -30,7 +31,7 @@ export function AIGenerateModal({
     setError("");
 
     try {
-      const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const API = BASE_URL;
       const res = await axios.post(`${API}/api/ai/generate`, {
         mode,
         prompt,

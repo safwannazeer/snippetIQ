@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import axios from "axios";
+import { BASE_URL } from "@/config";
 
 export default function Signup({ isDark, toggleTheme }) {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function Signup({ isDark, toggleTheme }) {
     }
 
     try {
-      const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const API = BASE_URL;
       const res = await axios.post(`${API}/api/auth/register`, {
         name,
         email,

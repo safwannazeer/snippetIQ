@@ -6,6 +6,7 @@ import { SnippetCard } from "@/components/SnippetCard";
 import { LANGUAGES } from "@/lib/types";
 import { toast } from "sonner";
 import axios from "axios";
+import { BASE_URL } from "@/config";
 
 export default function MySnippets() {
   const [snippets, setSnippets] = useState([]);
@@ -24,7 +25,7 @@ export default function MySnippets() {
 
     const fetchSnippets = async () => {
       try {
-        const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+        const API = BASE_URL;
         const res = await axios.get(`${API}/api/snippets`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -65,7 +66,7 @@ export default function MySnippets() {
 
   const handleDelete = async (id) => {
     try {
-      const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const API = BASE_URL;
       await axios.delete(`${API}/api/snippets/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,

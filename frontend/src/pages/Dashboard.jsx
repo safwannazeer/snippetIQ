@@ -11,6 +11,7 @@ import { AIGenerateModal } from "@/components/AIGenerateModal";
 import { generateTags } from "@/lib/tagGenerator";
 import { LANGUAGES, languageToMonaco } from "@/lib/types";
 import { toast } from "sonner";
+import { BASE_URL } from "@/config";
 
 const sampleCode = {
   JavaScript: `// Welcome to SnippetIQ\n// Start coding or paste your snippet here\n\nfunction greet(name) {\n  return \`Hello, \${name}!\`;\n}\n\nconsole.log(greet("World"));`,
@@ -47,9 +48,7 @@ export default function Dashboard({ isDark }) {
 
     const fetchSnippet = async () => {
       try {
-        const API = import.meta.env.VITE_API_URL;
-
-axios.get(`${API}/api/...`);
+        const API = BASE_URL;
         const res = await axios.get(`${API}/api/snippets/${editingId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -96,7 +95,7 @@ axios.get(`${API}/api/...`);
 
     try {
       if (isEditing && editingId) {
-        const API = import.meta.env.VITE_API_URL;
+        const API = BASE_URL;
 
         await axios.put(`${API}/api/snippets/${editingId}`, payload, {
           headers: {
@@ -134,9 +133,7 @@ axios.get(`${API}/api/...`);
   const handleAIGenerate = useCallback(async (prompt) => {
     setIsGenerating(true);
     try {
-      const API = import.meta.env.VITE_API_URL;
-
-axios.get(`${API}/api/...`);
+      const API = BASE_URL;
       const res = await axios.post(`${API}/api/ai/generate`, {
         mode: "generate",
         prompt,
