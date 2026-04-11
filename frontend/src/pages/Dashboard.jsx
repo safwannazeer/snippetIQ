@@ -94,9 +94,9 @@ export default function Dashboard({ isDark }) {
     };
 
     try {
-      if (isEditing && editingId) {
-        const API = BASE_URL;
+      const API = BASE_URL;
 
+      if (isEditing && editingId) {
         await axios.put(`${API}/api/snippets/${editingId}`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
