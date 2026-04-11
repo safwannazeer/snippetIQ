@@ -11,8 +11,7 @@ const snippetRoutes = require('./src/routes/snippets');
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:8080",   // ⭐ frontend port
-  credentials: true
+  origin: "*"
 }));
 
 app.use(express.json());
