@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { X, Sparkles } from "lucide-react";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,20 +30,17 @@ export function AIGenerateModal({
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/ai/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          mode,
-          prompt,
-          code: editorCode,
-          language: language || "javascript",
-        }),
+      const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const res = await axios.post(`${API}/api/ai/generate`, {
+        mode,
+        prompt,
+        code: editorCode,
+        language: language || "javascript",
       });
 
-      const data = await res.json();
+      const data = res.data;
 
-      if (!res.ok) {
+      if (res.status !== 200) {
         setError(data.message || "Something went wrong.");
         return;
       }

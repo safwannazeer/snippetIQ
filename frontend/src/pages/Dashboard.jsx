@@ -47,7 +47,10 @@ export default function Dashboard({ isDark }) {
 
     const fetchSnippet = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/snippets/${editingId}`, {
+        const API = import.meta.env.VITE_API_URL;
+
+axios.get(`${API}/api/...`);
+        const res = await axios.get(`${API}/api/snippets/${editingId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -93,7 +96,9 @@ export default function Dashboard({ isDark }) {
 
     try {
       if (isEditing && editingId) {
-        await axios.put(`http://localhost:5000/api/snippets/${editingId}`, payload, {
+        const API = import.meta.env.VITE_API_URL;
+
+        await axios.put(`${API}/api/snippets/${editingId}`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -102,7 +107,7 @@ export default function Dashboard({ isDark }) {
         setSearchParams({});
         setIsEditing(false);
       } else {
-        await axios.post("http://localhost:5000/api/snippets", payload, {
+        await axios.post(`${API}/api/snippets`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -129,7 +134,10 @@ export default function Dashboard({ isDark }) {
   const handleAIGenerate = useCallback(async (prompt) => {
     setIsGenerating(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/ai/generate", {
+      const API = import.meta.env.VITE_API_URL;
+
+axios.get(`${API}/api/...`);
+      const res = await axios.post(`${API}/api/ai/generate`, {
         mode: "generate",
         prompt,
         language,

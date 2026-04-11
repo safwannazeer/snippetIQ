@@ -24,7 +24,8 @@ export default function MySnippets() {
 
     const fetchSnippets = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/snippets", {
+        const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+        const res = await axios.get(`${API}/api/snippets`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -64,7 +65,8 @@ export default function MySnippets() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/snippets/${id}`, {
+      const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      await axios.delete(`${API}/api/snippets/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
