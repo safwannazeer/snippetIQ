@@ -12,6 +12,7 @@ export default function MySnippets() {
   const [snippets, setSnippets] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterLang, setFilterLang] = useState("All");
+  const [deletingId, setDeletingId] = useState(null);
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -65,6 +66,9 @@ export default function MySnippets() {
   }, [snippets, searchQuery, filterLang]);
 
   const handleDelete = async (id) => {
+    if (deletingId) return; // Prevent multiple deletes
+
+    setDeletingId(id);
     try {
       const API = BASE_URL;
       await axios.delete(`${API}/api/snippets/${id}`, {
@@ -78,6 +82,8 @@ export default function MySnippets() {
     } catch (err) {
       console.error("DELETE ERROR:", err);
       toast.error("Delete failed");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -124,6 +130,7 @@ export default function MySnippets() {
               snippet={snippet}
               onClick={() => navigate(`/dashboard?edit=${snippet._id}`)}
               onDelete={() => handleDelete(snippet._id)}
+              isDeleting={deletingId === snippet._id}
             />
           ))}
         </div>

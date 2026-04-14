@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Code2 } from "lucide-react";
+import { Code2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,9 +13,11 @@ export default function Login({ isDark, toggleTheme }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const API = BASE_URL;
@@ -33,6 +35,8 @@ export default function Login({ isDark, toggleTheme }) {
       navigate("/dashboard");
     } catch (err) {
       alert(err.response?.data?.message || err.message || "Login failed");
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -81,8 +85,15 @@ export default function Login({ isDark, toggleTheme }) {
                 />
               </div>
 
-              <Button type="submit" className="w-full">
-                Login
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Logging in...
+                  </>
+                ) : (
+                  "Login"
+                )}
               </Button>
             </form>
 

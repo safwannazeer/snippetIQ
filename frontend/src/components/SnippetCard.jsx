@@ -1,8 +1,8 @@
-import { Code2, Trash2, Copy } from "lucide-react";
+import { Code2, Trash2, Copy, Loader2 } from "lucide-react";
 import { TagChip } from "@/components/TagChip";
 import { toast } from "sonner";
 
-export function SnippetCard({ snippet, onClick, onDelete }) {
+export function SnippetCard({ snippet, onClick, onDelete, isDeleting = false }) {
   const handleCopy = (e) => {
     e.stopPropagation();
     navigator.clipboard.writeText(snippet.code);
@@ -35,10 +35,15 @@ export function SnippetCard({ snippet, onClick, onDelete }) {
               e.stopPropagation();
               onDelete();
             }}
-            className="opacity-0 group-hover:opacity-100 rounded-md p-1 hover:bg-destructive/10 transition-all"
+            disabled={isDeleting}
+            className="opacity-0 group-hover:opacity-100 rounded-md p-1 hover:bg-destructive/10 transition-all disabled:opacity-100"
             aria-label="Delete snippet"
           >
-            <Trash2 className="h-3.5 w-3.5 text-destructive" />
+            {isDeleting ? (
+              <Loader2 className="h-3.5 w-3.5 text-destructive animate-spin" />
+            ) : (
+              <Trash2 className="h-3.5 w-3.5 text-destructive" />
+            )}
           </button>
         </div>
       </div>

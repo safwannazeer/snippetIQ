@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Code2 } from "lucide-react";
+import { Code2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +15,7 @@ export default function Signup({ isDark, toggleTheme }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +24,8 @@ export default function Signup({ isDark, toggleTheme }) {
       alert("Passwords do not match");
       return;
     }
+
+    setIsLoading(true);
 
     try {
       const API = BASE_URL;
@@ -42,6 +45,8 @@ export default function Signup({ isDark, toggleTheme }) {
 
     } catch (err) {
       alert(err.response?.data?.message || err.message || "Signup failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -114,8 +119,15 @@ export default function Signup({ isDark, toggleTheme }) {
                 />
               </div>
 
-              <Button type="submit" className="w-full">
-                Sign Up
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Signing up...
+                  </>
+                ) : (
+                  "Sign Up"
+                )}
               </Button>
             </form>
 
