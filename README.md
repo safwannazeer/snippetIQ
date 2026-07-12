@@ -1,3 +1,5 @@
+https://snippet-iq.vercel.app/
+
 # 🚀 SnippetIQ
 
 **SnippetIQ** is a smart code snippet management platform with AI-powered assistance. It helps developers store, organize, search, and reuse code efficiently while also generating and explaining code using AI.
